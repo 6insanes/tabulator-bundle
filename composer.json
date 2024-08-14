@@ -1,0 +1,21 @@
+{
+    "name": "deviantlab/tabulator-bundle",
+    "description": "Tabulator Symfony bundle",
+    "type": "symfony-bundle",
+    "version": "0.0.0",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "DeviantLab\\TabulatorBundle\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Igor Chunikhin",
+            "email": "6insanes@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=8.1"
+    }
+}

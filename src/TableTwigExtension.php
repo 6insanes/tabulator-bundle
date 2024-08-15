@@ -5,8 +5,6 @@ declare(strict_types=1);
 
 namespace DeviantLab\TabulatorBundle;
 
-use Symfony\UX\StimulusBundle\Dto\StimulusAttributes;
-use Table\Action\ActionButtonInterface;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -20,10 +18,6 @@ final class TableTwigExtension extends AbstractExtension
                 'needs_environment' => true,
                 'is_safe' => ['html'],
             ]),
-            new TwigFunction('table_action_attrs', [$this, 'renderActionAttributes'], [
-                'needs_environment' => true,
-                'is_safe' => ['html'],
-            ])
         ];
     }
 
@@ -31,21 +25,9 @@ final class TableTwigExtension extends AbstractExtension
     {
         $adapter = new TabulatorAdapter($table);
 
-        return $twig->render('_partials/tabulator_table.html.twig', [
+        return $twig->render('@DeviantlabTabulator/tabulator.html.twig', [
             'table' => $table,
             'options' => $adapter->getOptions(),
         ]);
-    }
-
-    public function renderActionAttributes(Environment $environment, ActionButtonInterface $actionButton): string
-    {
-        $stimulusAttributes = new StimulusAttributes($environment);
-        $stimulusAttributes->addTarget('tabulator-actions', 'action');
-        $stimulusAttributes->addAttribute('title', $actionButton->getTitle());
-        foreach ($actionButton->getAttrs() as $name => $value) {
-            $stimulusAttributes->addAttribute($name, $value);;
-        }
-
-        return (string)$stimulusAttributes;
     }
 }

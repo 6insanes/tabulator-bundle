@@ -10,7 +10,21 @@
                 "main": "dist/tabulator_controller.js",
                 "webpackMode": "eager",
                 "fetch": "eager",
-                "enabled": true
+                "enabled": true,
+                "autoimport": {
+                    "tabulator-tables/dist/css/tabulator.css": false,
+                    "tabulator-tables/dist/css/tabulator_bootstrap3.css": false,
+                    "tabulator-tables/dist/css/tabulator_bootstrap4.css": false,
+                    "tabulator-tables/dist/css/tabulator_bootstrap5.css": false,
+                    "tabulator-tables/dist/css/tabulator_bulma.css": false,
+                    "tabulator-tables/dist/css/tabulator_materialize.css": false,
+                    "tabulator-tables/dist/css/tabulator_midnight.css": false,
+                    "tabulator-tables/dist/css/tabulator_modern.css": false,
+                    "tabulator-tables/dist/css/tabulator_semanticui.css": false,
+                    "tabulator-tables/dist/css/tabulator_simple.css": true,
+                    "tabulator-tables/dist/css/tabulator_site.css": false,
+                    "tabulator-tables/dist/css/tabulator_site_dark.css": false
+                }
             }
         },
         "importmap": {

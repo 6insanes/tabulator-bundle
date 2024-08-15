@@ -1,0 +1,40 @@
+{
+    "name": "@deviantlab/tabulator-bundle",
+    "description": "Tabulator Symfony Bundle",
+    "license": "MIT",
+    "private": true,
+    "version": "0.0.0",
+    "symfony": {
+        "controllers": {
+            "tabulator": {
+                "main": "dist/tabulator_controller.js",
+                "webpackMode": "eager",
+                "fetch": "eager",
+                "enabled": true
+            }
+        },
+        "importmap": {
+            "@hotwired/stimulus": "^3.0.0",
+            "tabulator-tables": "^6.2.5"
+        }
+    },
+    "scripts": {
+        "build": "babel src --extensions .ts -d dist",
+        "lint": "eslint src test"
+    },
+    "peerDependencies": {
+        "@hotwired/stimulus": "^3.0.0",
+        "tabulator-tables": "^6.2.5"
+    },
+    "devDependencies": {
+        "@babel/cli": "^7.24.8",
+        "@babel/core": "^7.25.2",
+        "@babel/plugin-transform-class-properties": "^7.24.7",
+        "@babel/preset-env": "^7.25.3",
+        "@babel/preset-typescript": "^7.24.7",
+        "@hotwired/stimulus": "^3.0.0",
+        "@types/tabulator-tables": "^6.2.3",
+        "tabulator-tables": "^6.2.5",
+        "typescript": "^5.5.4"
+    }
+}

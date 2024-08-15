@@ -31,7 +31,6 @@ final class Table implements TableInterface
     private ?Pagination $pagination = null;
 
     public function __construct(
-        private readonly ?string           $title = null,
         private readonly ?Layout           $layout = null,
         private readonly ?bool             $printAsHtml = null,
         private ?string                    $printHeader = null,
@@ -59,11 +58,6 @@ final class Table implements TableInterface
     )
     {
         $this->setPagination($pagination);
-    }
-
-    public function getTitle(): ?string
-    {
-        return $this->title;
     }
 
     public function getLayout(): ?Layout

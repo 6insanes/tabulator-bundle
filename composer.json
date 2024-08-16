@@ -16,7 +16,8 @@
         "symfony/flex": "^2.0",
         "symfony/twig-bundle": "^6.4|^7.0",
         "doctrine/doctrine-bundle": "^2.12",
-        "symfony/serializer": "^6.4|^7.0"
+        "symfony/serializer": "^6.4|^7.0",
+        "doctrine/orm": "^3.0"
     },
     "require-dev": {
         "symfony/framework-bundle": "^6.0|^7.0",

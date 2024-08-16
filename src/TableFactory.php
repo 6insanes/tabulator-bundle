@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace DeviantLab\TabulatorBundle;
 
-use Doctrine\Persistence\ManagerRegistry;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 final class TableFactory
 {
     public function __construct(
-        private readonly ManagerRegistry $doctrine,
         private readonly UrlGeneratorInterface $urlGenerator,
         private readonly ContainerInterface $locator,
     )
@@ -32,19 +30,23 @@ final class TableFactory
         /** @var OrmTableInterface $tableType */
         $tableType = $this->locator->get($tableTypeClass);
 
-        dump($tableType);
-
         $table = new Table();
         foreach ($tableType->getColumns() as $column) {
             $table->addColumn($column);
         }
 
-        $table->setAjax(new Ajax(
+        $ajax = new Ajax(
             url: $this->urlGenerator->generate('deviantlab_tabulatorbundle_get_data', [
                 '_tableName' => call_user_func([$tableType, 'getName']),
             ]),
             method: 'GET',
-        ));
+        );
+        $table->setAjax($ajax);
+
+        $pagination = $tableType->getPagination();
+        if ($pagination) {
+            $table->setPagination($pagination);
+        }
 
         return $table;
     }

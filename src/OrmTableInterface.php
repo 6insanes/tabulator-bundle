@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace DeviantLab\TabulatorBundle;
 
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
+
 interface OrmTableInterface
 {
     public static function getName(): string;
@@ -15,5 +18,9 @@ interface OrmTableInterface
      */
     public function getColumns(): iterable;
 
-    public function load(\Doctrine\Persistence\ObjectRepository $repo);
+    public function getPagination(): ?Pagination;
+
+    public function getQueryBuilder(ServiceEntityRepository $repo): QueryBuilder;
+
+    public function doTransform(array $items): array;
 }

@@ -19,7 +19,6 @@ return function(ContainerConfigurator $container): void {
 
     $services->set(TableFactory::class)
         ->args([
-            service(ManagerRegistry::class),
             service(UrlGeneratorInterface::class),
             tagged_locator('deviantlab.tabulator.table_type')
         ]);

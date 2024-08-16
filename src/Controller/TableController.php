@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace DeviantLab\TabulatorBundle\Controller;
 
 use DeviantLab\TabulatorBundle\OrmTableInterface;
+use DeviantLab\TabulatorBundle\PaginationMode;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -30,7 +32,30 @@ final class TableController
         $tableType = $this->locator->get($tableName);
 
         $repo = $this->doctrine->getRepository($tableType->getEntityClass());
-        $data = $tableType->load($repo);
+        $qb = $tableType->getQueryBuilder($repo);
+
+        $pagination = $tableType->getPagination();
+        if (!$pagination || $pagination->getMode() === PaginationMode::LOCAL) {
+            $items = $qb->getQuery()->getResult();
+            $items = $tableType->doTransform($items);
+            $json = $this->serializer->serialize($items, 'json');
+            return JsonResponse::fromJsonString($json);
+        }
+
+        $size = $request->query->getInt($pagination->getSizeParamName());
+        $page = $request->query->getInt($pagination->getPageParamName());
+
+        $qb->setMaxResults($size);
+        $qb->setFirstResult(($page - 1) * $size);
+        $paginator = new Paginator($qb);
+
+        $items = iterator_to_array($paginator->getIterator());
+        $items = $tableType->doTransform($items);
+
+        $data = [
+            'last_page' => ceil($paginator->count() / $size),
+            'data' => $items,
+        ];
 
         $json = $this->serializer->serialize($data, 'json');
 

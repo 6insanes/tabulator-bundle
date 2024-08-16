@@ -48,6 +48,8 @@ final class TableFactory
             $table->setPagination($pagination);
         }
 
+        $table->setSortMode($tableType->getSortMode());
+
         return $table;
     }
 }

@@ -20,6 +20,8 @@ interface OrmTableInterface
 
     public function getPagination(): ?Pagination;
 
+    public function getSortMode(): SortMode;
+
     public function getQueryBuilder(ServiceEntityRepository $repo): QueryBuilder;
 
     public function doTransform(array $items): array;

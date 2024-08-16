@@ -21,6 +21,8 @@ final class Table implements TableInterface
 
     private string $placeholder = 'Нет данных';
 
+    private SortMode $sortMode = SortMode::LOCAL;
+
     private ?Pagination $pagination = null;
 
     private ?Ajax $ajax;
@@ -193,6 +195,18 @@ final class Table implements TableInterface
     public function setAjax(?Ajax $ajax): self
     {
         $this->ajax = $ajax;
+
+        return $this;
+    }
+
+    public function getSortMode(): SortMode
+    {
+        return $this->sortMode;
+    }
+
+    public function setSortMode(SortMode $sortMode): self
+    {
+        $this->sortMode = $sortMode;
 
         return $this;
     }

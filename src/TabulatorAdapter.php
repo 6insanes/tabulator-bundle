@@ -25,6 +25,7 @@ final class TabulatorAdapter
         ];
 
         $result['locale'] = $this->table->getLocale();
+        $result['sortMode'] = $this->table->getSortMode()->value;
 
         if ($layout = $this->table->getLayout()) {
             $result['layout'] = $layout->value;

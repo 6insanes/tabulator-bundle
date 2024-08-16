@@ -22,7 +22,15 @@ interface OrmTableInterface
 
     public function getSortMode(): SortMode;
 
+    public function getFilterMode(): FilterMode;
+
     public function getQueryBuilder(ServiceEntityRepository $repo): QueryBuilder;
 
     public function doTransform(array $items): array;
+
+    public function applyFilter(QueryBuilder $qb, array $filter): void;
+
+    public function applySort(QueryBuilder $qb, array $sort): void;
+
+    public function applyPagination(QueryBuilder $qb, int $size, int $page): void;
 }

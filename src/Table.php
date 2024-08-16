@@ -30,7 +30,7 @@ final class Table implements TableInterface
     public function __construct(
         private readonly ?Layout           $layout = null,
         private ?string                    $printHeader = null,
-        private readonly ?FilterMode       $filterMode = null,
+        private FilterMode                 $filterMode = FilterMode::LOCAL,
         private readonly string|int|null   $height = null,
         private readonly string|int|null   $maxHeight = null,
         private readonly string|int|null   $minHeight = null,
@@ -60,11 +60,6 @@ final class Table implements TableInterface
     public function getLayout(): ?Layout
     {
         return $this->layout;
-    }
-
-    public function getFilterMode(): ?FilterMode
-    {
-        return $this->filterMode;
     }
 
     public function getHeight(): string|int|null
@@ -207,6 +202,18 @@ final class Table implements TableInterface
     public function setSortMode(SortMode $sortMode): self
     {
         $this->sortMode = $sortMode;
+
+        return $this;
+    }
+
+    public function getFilterMode(): FilterMode
+    {
+        return $this->filterMode;
+    }
+
+    public function setFilterMode(FilterMode $filterMode): self
+    {
+        $this->filterMode = $filterMode;
 
         return $this;
     }

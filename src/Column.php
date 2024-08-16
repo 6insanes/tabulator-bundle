@@ -20,7 +20,7 @@ final class Column
         public readonly ?int                          $minWidth = null,
         public readonly ?int                          $maxWidth = null,
         public readonly ?bool                         $frozen = null,
-        public readonly ?bool                         $headerFilter = null,
+        public readonly ?HeaderFilter                 $headerFilter = null,
         public readonly ?bool                         $print = null,
         public readonly ?bool                         $headerSort = null,
         public readonly ?HozAlign                     $headerHozAlign = null,

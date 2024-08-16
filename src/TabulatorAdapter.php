@@ -26,6 +26,7 @@ final class TabulatorAdapter
 
         $result['locale'] = $this->table->getLocale();
         $result['sortMode'] = $this->table->getSortMode()->value;
+        $result['filterMode'] = $this->table->getFilterMode()->value;
 
         if ($layout = $this->table->getLayout()) {
             $result['layout'] = $layout->value;
@@ -33,10 +34,6 @@ final class TabulatorAdapter
 
         if ($printHeader = $this->table->getPrintHeader()) {
             $result['printHeader'] = $printHeader;
-        }
-
-        if ($filterMode = $this->table->getFilterMode()) {
-            $result['filterMode'] = $filterMode->value;
         }
 
         if ($height = $this->table->getHeight()) {
@@ -155,7 +152,9 @@ final class TabulatorAdapter
             $item = [];
 
             if ($column->headerFilter !== null) {
-                $item['headerFilter'] = $column->headerFilter;
+                $item['headerFilter'] = $column->headerFilter->editor->getName();
+                $item['headerFilterPlaceholder'] = $column->headerFilter->placeholder;
+                $item['headerFilterFunc'] = $column->headerFilter->filterFunction->getName();
             }
 
             if ($column->print !== null) {

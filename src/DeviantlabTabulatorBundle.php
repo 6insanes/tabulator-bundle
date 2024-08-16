@@ -12,7 +12,9 @@ final class DeviantlabTabulatorBundle extends AbstractBundle
 {
     public function loadExtension(array $config, ContainerConfigurator $container, ContainerBuilder $builder): void
     {
-        $builder->autowire(TableTwigExtension::class)
-            ->addTag('twig.extension');
+        $container->import('../config/services.php');
+
+        $builder->registerForAutoconfiguration(OrmTableInterface::class)
+            ->addTag('deviantlab.tabulator.table_type');
     }
 }

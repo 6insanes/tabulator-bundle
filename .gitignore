@@ -3,3 +3,5 @@
 assets/node_modules
 .phpunit.result.cache
 composer.lock
+
+/var/

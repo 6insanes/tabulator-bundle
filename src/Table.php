@@ -19,20 +19,14 @@ final class Table implements TableInterface
 
     private ?array $data = null;
 
-    /**
-     * Ajax data loader
-     *
-     * @var \Closure|null
-     */
-    private ?\Closure $dataLoader = null;
-
     private string $placeholder = 'Нет данных';
 
     private ?Pagination $pagination = null;
 
+    private ?Ajax $ajax;
+
     public function __construct(
         private readonly ?Layout           $layout = null,
-        private readonly ?bool             $printAsHtml = null,
         private ?string                    $printHeader = null,
         private readonly ?FilterMode       $filterMode = null,
         private readonly string|int|null   $height = null,
@@ -52,25 +46,18 @@ final class Table implements TableInterface
         private readonly ?bool             $autoResize = null,
         private readonly ?bool             $resizableColumnFit = null,
         private readonly ?bool             $selectableRows = null,
-        private readonly ?Ajax             $ajax = null,
+        ?Ajax                              $ajax = null,
         ?Pagination                        $pagination = null,
         private readonly ?RowHeader        $rowHeader = null,
     )
     {
+        $this->ajax = $ajax;
         $this->setPagination($pagination);
     }
 
     public function getLayout(): ?Layout
     {
         return $this->layout;
-    }
-
-    public function getPrintAsHtml(): ?bool
-    {
-        if ($this->printAsHtml && !($this->printHeader)) {
-            $this->printHeader = '<h1 class="tabulator-print-table__header">' . $this->title . '</h1>';
-        }
-        return $this->printAsHtml;
     }
 
     public function getFilterMode(): ?FilterMode
@@ -133,16 +120,6 @@ final class Table implements TableInterface
         return $this->data;
     }
 
-    public function getDataLoader(): ?\Closure
-    {
-        return $this->dataLoader;
-    }
-
-    public function setDataLoader(?\Closure $dataLoader): void
-    {
-        $this->dataLoader = $dataLoader;
-    }
-
     public function setPlaceholder(string $placeholder): self
     {
         $this->placeholder = $placeholder;
@@ -153,11 +130,6 @@ final class Table implements TableInterface
     public function getPlaceholder()
     {
         return $this->placeholder;
-    }
-
-    public function getAjax(): ?Ajax
-    {
-        return $this->ajax;
     }
 
     public function getPagination(): ?Pagination
@@ -211,5 +183,17 @@ final class Table implements TableInterface
     public function getEditTriggerEvent(): ?EditTriggerEvent
     {
         return $this->editTriggerEvent;
+    }
+
+    public function getAjax(): ?Ajax
+    {
+        return $this->ajax;
+    }
+
+    public function setAjax(?Ajax $ajax): self
+    {
+        $this->ajax = $ajax;
+
+        return $this;
     }
 }

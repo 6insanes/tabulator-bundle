@@ -30,10 +30,6 @@ final class TabulatorAdapter
             $result['layout'] = $layout->value;
         }
 
-        if ($printAsHtml = $this->table->getPrintAsHtml()) {
-            $result['printAsHtml'] = $printAsHtml;
-        }
-
         if ($printHeader = $this->table->getPrintHeader()) {
             $result['printHeader'] = $printHeader;
         }
@@ -236,9 +232,6 @@ final class TabulatorAdapter
                 if (\count($params) > 0) {
                     $item['formatterParams'] = $params;
                 }
-
-                // TODO: сделать с этим что-то
-                $item['titleFormatter'] = $formatter->getName();
             }
 
             if ($editor = $column->editor) {

@@ -14,14 +14,22 @@
     "require": {
         "php": ">=8.1",
         "symfony/flex": "^2.0",
-        "symfony/twig-bundle": "^6.4|^7.0"
+        "symfony/twig-bundle": "^6.4|^7.0",
+        "doctrine/doctrine-bundle": "^2.12",
+        "symfony/serializer": "^6.4|^7.0"
     },
     "require-dev": {
-        "symfony/framework-bundle": "^6.0|^7.0"
+        "symfony/framework-bundle": "^6.0|^7.0",
+        "symfony/phpunit-bridge": "^7.1"
     },
     "autoload": {
         "psr-4": {
             "DeviantLab\\TabulatorBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "DeviantLab\\TabulatorBundle\\Tests\\": "tests/"
         }
     },
     "config": {

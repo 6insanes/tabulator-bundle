@@ -62,7 +62,7 @@ final class TableController
         $items = $tableType->doTransform($items);
 
         $data = [
-            'last_page' => ceil($paginator->count() / $size),
+            'last_page' => (int) ceil($paginator->count() / $size),
             'data' => $items,
         ];
 

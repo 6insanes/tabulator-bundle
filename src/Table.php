@@ -19,6 +19,8 @@ final class Table implements TableInterface
 
     private ?array $data = null;
 
+    private bool $dataTree = false;
+
     private string $placeholder = 'Нет данных';
 
     private SortMode $sortMode = SortMode::LOCAL;
@@ -115,6 +117,18 @@ final class Table implements TableInterface
     public function getData(): ?array
     {
         return $this->data;
+    }
+
+    public function isDataTree(): bool
+    {
+        return $this->dataTree;
+    }
+
+    public function setDataTree(bool $dataTree): self
+    {
+        $this->dataTree = $dataTree;
+
+        return $this;
     }
 
     public function setPlaceholder(string $placeholder): self

@@ -28,6 +28,10 @@ final class TabulatorAdapter
         $result['sortMode'] = $this->table->getSortMode()->value;
         $result['filterMode'] = $this->table->getFilterMode()->value;
 
+        if ($dataTree = $this->table->isDataTree()) {
+            $result['dataTree'] = $dataTree;
+        }
+
         if ($layout = $this->table->getLayout()) {
             $result['layout'] = $layout->value;
         }

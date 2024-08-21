@@ -5,6 +5,7 @@ declare(strict_types=1);
 
 namespace DeviantLab\TabulatorBundle;
 
+use Symfony\UX\StimulusBundle\Dto\StimulusAttributes;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -21,13 +22,16 @@ final class TableTwigExtension extends AbstractExtension
         ];
     }
 
-    public function renderTable(Environment $twig, Table $table): string
+    public function renderTable(Environment $twig, Table $table, ?StimulusAttributes $stimulusAttributes = null): string
     {
         $adapter = new TabulatorAdapter($table);
+        $stimulusAttributes = $stimulusAttributes ?? new StimulusAttributes($twig);
+        $stimulusAttributes->addController('deviantlab--tabulator-bundle--tabulator', [
+            'options' => $adapter->getOptions(),
+        ]);
 
         return $twig->render('@DeviantlabTabulator/tabulator.html.twig', [
-            'table' => $table,
-            'options' => $adapter->getOptions(),
+            'stimulusAttributes' => $stimulusAttributes,
         ]);
     }
 }

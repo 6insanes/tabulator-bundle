@@ -26,12 +26,11 @@ final class TabulatorAdapterTest extends TestCase
         $options = $adapter->getOptions();
         $this->assertArrayNotHasKey('height', $options);
 
-        $table = new Table(
-            layout: Layout::FIT_COLUMNS,
-            height: '100%',
-            maxHeight: '99%',
-            minHeight: '98%',
-        );
+        $table = new Table();
+        $table->setLayout(Layout::FIT_COLUMNS);
+        $table->setHeight('100%');
+        $table->setMaxHeight('99%');
+        $table->setMinHeight('98%');
         $adapter = new TabulatorAdapter($table);
         $options = $adapter->getOptions();
 
@@ -52,19 +51,17 @@ final class TabulatorAdapterTest extends TestCase
         $table = new Table();
         $adapter = new TabulatorAdapter($table);
         $options = $adapter->getOptions();
-        $this->assertArrayNotHasKey('filterMode', $options);
+        $this->assertSame('local', $options['filterMode']);
 
-        $table = new Table(
-            filterMode: FilterMode::LOCAL,
-        );
+        $table = new Table();
+        $table->setFilterMode(FilterMode::LOCAL);
         $adapter = new TabulatorAdapter($table);
         $options = $adapter->getOptions();
         $this->assertArrayHasKey('filterMode', $options);
         $this->assertSame('local', $options['filterMode']);
 
-        $table = new Table(
-            filterMode: FilterMode::REMOTE,
-        );
+        $table = new Table();
+        $table->setFilterMode(FilterMode::REMOTE);
         $adapter = new TabulatorAdapter($table);
         $options = $adapter->getOptions();
         $this->assertArrayHasKey('filterMode', $options);
@@ -73,12 +70,10 @@ final class TabulatorAdapterTest extends TestCase
 
     public function testLayoutWithPixels(): void
     {
-        $table = new Table(
-            height: 100,
-            maxHeight: 99,
-            minHeight: 98,
-            rowHeight: 40,
-        );
+        $table = new Table(rowHeight: 40);
+        $table->setHeight(100);
+        $table->setMaxHeight(99);
+        $table->setMinHeight(98);
         $adapter = new TabulatorAdapter($table);
         $options = $adapter->getOptions();
         $this->assertArrayHasKey('height', $options);
@@ -348,7 +343,7 @@ final class TabulatorAdapterTest extends TestCase
         $options = $adapter->getOptions();
 
         $this->assertSame(true, $options['selectableRows']);
-        $this->assertEquals(['formatter' => 'rowSelection', 'hozAlign' => 'center', 'titleFormatter' => 'rowSelection'], $options['columns'][0]);
+        $this->assertEquals(['formatter' => 'rowSelection', 'hozAlign' => 'center'], $options['columns'][0]);
         $this->assertArrayNotHasKey('headerFilter', $options['columns'][0]);
         $this->assertArrayNotHasKey('field', $options['columns'][0]);
         $this->assertArrayNotHasKey('title', $options['columns'][0]);

@@ -7,6 +7,14 @@ namespace DeviantLab\TabulatorBundle;
 
 final class Table implements TableInterface
 {
+    private ?Layout $layout = null;
+
+    private string|int|null $height = null;
+
+    private string|int|null $maxHeight = null;
+
+    private string|int|null $minHeight = null;
+
     /**
      * @var array<string, Column>
      */
@@ -29,19 +37,18 @@ final class Table implements TableInterface
 
     private string $placeholder = 'Нет данных';
 
+    private FilterMode $filterMode = FilterMode::LOCAL;
+
     private SortMode $sortMode = SortMode::LOCAL;
 
     private ?Pagination $pagination = null;
 
     private ?Ajax $ajax;
 
+    private string|bool|null $popupContainer = null;
+
     public function __construct(
-        private readonly ?Layout           $layout = null,
         private ?string                    $printHeader = null,
-        private FilterMode                 $filterMode = FilterMode::LOCAL,
-        private readonly string|int|null   $height = null,
-        private readonly string|int|null   $maxHeight = null,
-        private readonly string|int|null   $minHeight = null,
         private readonly ?int              $rowHeight = null,
         private readonly ?bool             $layoutColumnsOnNewData = null,
         private readonly string            $locale = 'ru',
@@ -70,9 +77,23 @@ final class Table implements TableInterface
         return $this->layout;
     }
 
+    public function setLayout(?Layout $layout): self
+    {
+        $this->layout = $layout;
+
+        return $this;
+    }
+
     public function getHeight(): string|int|null
     {
         return $this->height;
+    }
+
+    public function setHeight(string|int|null $height): self
+    {
+        $this->height = $height;
+
+        return $this;
     }
 
     public function getMaxHeight(): string|int|null
@@ -80,9 +101,23 @@ final class Table implements TableInterface
         return $this->maxHeight;
     }
 
+    public function setMaxHeight(string|int|null $maxHeight): self
+    {
+        $this->maxHeight = $maxHeight;
+
+        return $this;
+    }
+
     public function getMinHeight(): string|int|null
     {
         return $this->minHeight;
+    }
+
+    public function setMinHeight(string|int|null $minHeight): self
+    {
+        $this->minHeight = $minHeight;
+
+        return $this;
     }
 
     public function getRowHeight(): ?int
@@ -264,6 +299,18 @@ final class Table implements TableInterface
     public function setFilterMode(FilterMode $filterMode): self
     {
         $this->filterMode = $filterMode;
+
+        return $this;
+    }
+
+    public function getPopupContainer(): string|bool|null
+    {
+        return $this->popupContainer;
+    }
+
+    public function setPopupContainer(string|bool|null $popupContainer): self
+    {
+        $this->popupContainer = $popupContainer;
 
         return $this;
     }

@@ -40,6 +40,10 @@ final class TabulatorAdapter
             $result['dataTreeFilter'] = $dataTreeFilter;
         }
 
+        if ($popupContainer = $this->table->getPopupContainer()) {
+            $result['popupContainer'] = $popupContainer;
+        }
+
         if (!$dataTreeSort = $this->table->isDataTreeSort()) {
             $result['dataTreeSort'] = $dataTreeSort;
         }

@@ -17,7 +17,8 @@
         "symfony/twig-bundle": "^6.4|^7.0",
         "doctrine/doctrine-bundle": "^2.12",
         "symfony/serializer": "^6.4|^7.0",
-        "doctrine/orm": "^3.0"
+        "doctrine/orm": "^3.0",
+        "symfony/stimulus-bundle": "^2.13"
     },
     "require-dev": {
         "symfony/framework-bundle": "^6.0|^7.0",
@@ -35,7 +36,10 @@
     },
     "config": {
         "allow-plugins": {
-            "symfony/flex": false
+            "symfony/flex": true
         }
+    },
+    "scripts": {
+        "test": "@php vendor/bin/simple-phpunit"
     }
 }

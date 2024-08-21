@@ -33,6 +33,7 @@ export default class TabulatorController extends Controller {
       }
     }
 
+    this.dispatch('pre-connect', { detail: { options } })
     this.tabulator = new TabulatorFull(this.element, options)
   }
 

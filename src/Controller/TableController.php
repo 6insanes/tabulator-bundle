@@ -34,7 +34,7 @@ final class TableController
         $tableType = $this->locator->get($tableName);
 
         $repo = $this->doctrine->getRepository($tableType->getEntityClass());
-        $qb = $tableType->getQueryBuilder($repo);
+        $qb = $tableType->getQueryBuilder($repo, $request->query->has('param') ? $request->query->all('param') : []);
 
         if ($tableType->getSortMode() === SortMode::REMOTE && $request->query->has('sort')) {
             $tableType->applySort($qb, $request->query->all('sort'));

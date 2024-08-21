@@ -24,7 +24,7 @@ interface OrmTableInterface
 
     public function getFilterMode(): FilterMode;
 
-    public function getQueryBuilder(ServiceEntityRepository $repo): QueryBuilder;
+    public function getQueryBuilder(ServiceEntityRepository $repo, array $params): QueryBuilder;
 
     public function doTransform(array $items): array;
 

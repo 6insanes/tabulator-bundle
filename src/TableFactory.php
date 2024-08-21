@@ -21,7 +21,7 @@ final class TableFactory
      * @param string $tableTypeClass
      * @return Table
      */
-    public function create(string $tableTypeClass): Table
+    public function create(string $tableTypeClass, ?array $params = null): Table
     {
         if (!$this->locator->has($tableTypeClass)) {
             throw new \InvalidArgumentException("{$tableTypeClass} not found");
@@ -39,6 +39,7 @@ final class TableFactory
             url: $this->urlGenerator->generate('deviantlab_tabulatorbundle_get_data', [
                 '_tableName' => call_user_func([$tableType, 'getName']),
             ]),
+            params: $params ? ['param' => $params] : null,
             method: 'GET',
         );
         $table->setAjax($ajax);

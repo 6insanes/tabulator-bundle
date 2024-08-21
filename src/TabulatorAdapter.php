@@ -32,6 +32,18 @@ final class TabulatorAdapter
             $result['dataTree'] = $dataTree;
         }
 
+        if ($dataTreeStartExpanded = $this->table->isDataTreeStartExpanded()) {
+            $result['dataTreeStartExpanded'] = $dataTreeStartExpanded;
+        }
+
+        if (!$dataTreeFilter = $this->table->isDataTreeFilter()) {
+            $result['dataTreeFilter'] = $dataTreeFilter;
+        }
+
+        if (!$dataTreeSort = $this->table->isDataTreeSort()) {
+            $result['dataTreeSort'] = $dataTreeSort;
+        }
+
         if ($layout = $this->table->getLayout()) {
             $result['layout'] = $layout->value;
         }

@@ -21,6 +21,12 @@ final class Table implements TableInterface
 
     private bool $dataTree = false;
 
+    private bool $dataTreeStartExpanded = false;
+
+    private bool $dataTreeFilter = true;
+
+    private bool $dataTreeSort = true;
+
     private string $placeholder = 'Нет данных';
 
     private SortMode $sortMode = SortMode::LOCAL;
@@ -129,6 +135,36 @@ final class Table implements TableInterface
         $this->dataTree = $dataTree;
 
         return $this;
+    }
+
+    public function isDataTreeStartExpanded(): bool
+    {
+        return $this->dataTreeStartExpanded;
+    }
+
+    public function setDataTreeStartExpanded(bool $dataTreeStartExpanded): void
+    {
+        $this->dataTreeStartExpanded = $dataTreeStartExpanded;
+    }
+
+    public function isDataTreeFilter(): bool
+    {
+        return $this->dataTreeFilter;
+    }
+
+    public function setDataTreeFilter(bool $dataTreeFilter): void
+    {
+        $this->dataTreeFilter = $dataTreeFilter;
+    }
+
+    public function isDataTreeSort(): bool
+    {
+        return $this->dataTreeSort;
+    }
+
+    public function setDataTreeSort(bool $dataTreeSort): void
+    {
+        $this->dataTreeSort = $dataTreeSort;
     }
 
     public function setPlaceholder(string $placeholder): self

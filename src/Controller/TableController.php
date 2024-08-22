@@ -46,7 +46,9 @@ final class TableController
 
         $pagination = $tableType->getPagination();
         if (!$pagination || $pagination->getMode() === PaginationMode::LOCAL) {
-            $items = $qb->getQuery()->getResult();
+            $query = $qb->getQuery();
+            $tableType->configureQuery($query);
+            $items = $query->getResult();
             $items = $tableType->doTransform($items);
             $json = $this->serializer->serialize($items, 'json');
             return JsonResponse::fromJsonString($json);
@@ -56,7 +58,9 @@ final class TableController
         $page = $request->query->getInt($pagination->getPageParamName());
         $tableType->applyPagination($qb, $size, $page);
 
-        $paginator = new Paginator($qb);
+        $query = $qb->getQuery();
+        $tableType->configureQuery($query);
+        $paginator = new Paginator($query);
 
         $items = iterator_to_array($paginator->getIterator());
         $items = $tableType->doTransform($items);

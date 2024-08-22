@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace DeviantLab\TabulatorBundle;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 
 interface OrmTableInterface
@@ -25,6 +26,8 @@ interface OrmTableInterface
     public function getFilterMode(): FilterMode;
 
     public function getQueryBuilder(ServiceEntityRepository $repo, array $params): QueryBuilder;
+
+    public function configureQuery(Query $query): void;
 
     public function doTransform(array $items): array;
 

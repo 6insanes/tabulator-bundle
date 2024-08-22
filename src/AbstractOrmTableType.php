@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace DeviantLab\TabulatorBundle;
 
+use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 
 abstract class AbstractOrmTableType implements OrmTableInterface
@@ -41,5 +42,15 @@ abstract class AbstractOrmTableType implements OrmTableInterface
                 $filterFunction->applyToOrmQueryBuilder($qb, $field, $value);
             }
         }
+    }
+
+    public function configureQuery(Query $query): void
+    {
+        // do nothing
+    }
+
+    public function doTransform(array $items): array
+    {
+        return $items;
     }
 }

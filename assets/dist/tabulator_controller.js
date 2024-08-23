@@ -42,6 +42,8 @@ export default class TabulatorController extends Controller {
         }
 
         this.element.addEventListener('turbo:before-morph-element', this._beforeMorphElement)
+
+        this.dispatch('connect', {detail: { options, tabulator: this.tabulator }})
     }
 
     disconnect() {

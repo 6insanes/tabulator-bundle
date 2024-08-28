@@ -52,6 +52,8 @@ final class TableFactory
         $table->setSortMode($tableType->getSortMode());
         $table->setFilterMode($tableType->getFilterMode());
 
+        $tableType->configureTable($table);
+
         return $table;
     }
 }

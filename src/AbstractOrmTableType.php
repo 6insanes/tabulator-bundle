@@ -49,6 +49,11 @@ abstract class AbstractOrmTableType implements OrmTableInterface
         // do nothing
     }
 
+    public function configureTable(Table $table): void
+    {
+        // do nothing
+    }
+
     public function doTransform(array $items): array
     {
         return $items;

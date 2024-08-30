@@ -43,6 +43,12 @@ final class Table implements TableInterface
 
     private ?InitialSortCollection $initialSort = null;
 
+    private ?bool $columnHeaderSortMulti = null;
+
+    private ?HeaderSortClickElement $headerSortClickElement = null;
+
+    private ?string $headerSortElement = null;
+
     private ?Pagination $pagination = null;
 
     private ?Ajax $ajax;
@@ -301,6 +307,67 @@ final class Table implements TableInterface
     public function setInitialSort(?InitialSortCollection $initialSort): self
     {
         $this->initialSort = $initialSort;
+
+        return $this;
+    }
+
+    public function getColumnHeaderSortMulti(): ?bool
+    {
+        return $this->columnHeaderSortMulti;
+    }
+
+    /**
+     * By default, you can sort by multiple columns at the same time by holding the ctrl or shift key
+     * when you click on the column headers.
+     *
+     * If you wish to disable this behaviour, so only once column can be sorted at a time,
+     * you can set this option to false
+     *
+     * @param bool|null $columnHeaderSortMulti
+     * @return Table
+     */
+    public function setColumnHeaderSortMulti(?bool $columnHeaderSortMulti): self
+    {
+        $this->columnHeaderSortMulti = $columnHeaderSortMulti;
+
+        return $this;
+    }
+
+    public function getHeaderSortClickElement(): ?HeaderSortClickElement
+    {
+        return $this->headerSortClickElement;
+    }
+
+    /**
+     * By default, header sorting is managed by clicking anywhere on the column header element.
+     * If you preferred to restrict this to just the sort icon then you can configure this by setting
+     * this option to `HeaderSortClickElement::ICON`:
+     *
+     * @param HeaderSortClickElement|null $headerSortClickElement
+     * @return Table
+     */
+    public function setHeaderSortClickElement(?HeaderSortClickElement $headerSortClickElement): self
+    {
+        $this->headerSortClickElement = $headerSortClickElement;
+
+        return $this;
+    }
+
+    public function getHeaderSortElement(): ?string
+    {
+        return $this->headerSortElement;
+    }
+
+    /**
+     * By default, Tabulator will use a caret arrow to indicate sort direction in a column's header.
+     * You can customise the icon used for the column header sort by passing in the HTML for the sorting element
+     *
+     * @param string|null $headerSortElement
+     * @return Table
+     */
+    public function setHeaderSortElement(?string $headerSortElement): self
+    {
+        $this->headerSortElement = $headerSortElement;
 
         return $this;
     }

@@ -96,6 +96,18 @@ final class TabulatorAdapter
             $result['initialSort'] = iterator_to_array($initialSort);
         }
 
+        if ($columnHeaderSortMulti = $this->table->getColumnHeaderSortMulti()) {
+            $result['columnHeaderSortMulti'] = $columnHeaderSortMulti;
+        }
+
+        if ($headerSortClickElement = $this->table->getHeaderSortClickElement()) {
+            $result['headerSortClickElement'] = $headerSortClickElement->value;
+        }
+
+        if ($headerSortElement = $this->table->getHeaderSortElement()) {
+            $result['headerSortElement'] = $headerSortElement;
+        }
+
         if ($ajax = $this->table->getAjax()) {
             $result['ajaxURL'] = $ajax->getUrl();
             if ($params = $ajax->getParams()) {
@@ -264,6 +276,17 @@ final class TabulatorAdapter
 
             if ($validator = $column->validator) {
                 $item['validator'] = $this->processValidators($validator);
+            }
+
+            if ($sorter = $column->sorter) {
+                $item['sorter'] = $sorter->getName();
+                if ($params = $sorter->getParams()) {
+                    $item['sorterParams'] = $params;
+                }
+            }
+
+            if ($column->headerSortStartingDir) {
+                $item['headerSortStartingDir'] = $column->headerSortStartingDir->value;
             }
 
             $result['columns'][] = $item;

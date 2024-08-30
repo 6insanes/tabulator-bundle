@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace DeviantLab\TabulatorBundle;
 
+use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
+use Psr\Container\NotFoundExceptionInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 final class TableFactory
@@ -17,9 +19,11 @@ final class TableFactory
     }
 
     /**
-     * @phpstan-param class-string<OrmTableInterface> $tableTypeClass
      * @param string $tableTypeClass
+     * @param array|null $params
      * @return Table
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
      */
     public function create(string $tableTypeClass, ?array $params = null): Table
     {
@@ -30,6 +34,11 @@ final class TableFactory
         /** @var OrmTableInterface $tableType */
         $tableType = $this->locator->get($tableTypeClass);
 
+        return $this->createTable($tableType, $params);
+    }
+
+    public function createTable(OrmTableInterface $tableType, ?array $params = null): Table
+    {
         $table = new Table();
         foreach ($tableType->getColumns() as $column) {
             $table->addColumn($column);

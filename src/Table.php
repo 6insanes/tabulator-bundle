@@ -41,6 +41,8 @@ final class Table implements TableInterface
 
     private SortMode $sortMode = SortMode::LOCAL;
 
+    private ?InitialSortCollection $initialSort = null;
+
     private ?Pagination $pagination = null;
 
     private ?Ajax $ajax;
@@ -287,6 +289,18 @@ final class Table implements TableInterface
     public function setSortMode(SortMode $sortMode): self
     {
         $this->sortMode = $sortMode;
+
+        return $this;
+    }
+
+    public function getInitialSort(): ?InitialSortCollection
+    {
+        return $this->initialSort;
+    }
+
+    public function setInitialSort(?InitialSortCollection $initialSort): self
+    {
+        $this->initialSort = $initialSort;
 
         return $this;
     }

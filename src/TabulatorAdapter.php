@@ -92,6 +92,10 @@ final class TabulatorAdapter
             $result['data'] = $data;
         }
 
+        if ($initialSort = $this->table->getInitialSort()) {
+            $result['initialSort'] = iterator_to_array($initialSort);
+        }
+
         if ($ajax = $this->table->getAjax()) {
             $result['ajaxURL'] = $ajax->getUrl();
             if ($params = $ajax->getParams()) {

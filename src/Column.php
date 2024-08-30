@@ -5,6 +5,7 @@ declare(strict_types=1);
 
 namespace DeviantLab\TabulatorBundle;
 
+use DeviantLab\TabulatorBundle\ColumnCalculation\ColumnCalculationInterface;
 use DeviantLab\TabulatorBundle\Sorter\SorterInterface;
 use DeviantLab\TabulatorBundle\Validator\ValidatorInterface;
 
@@ -42,6 +43,16 @@ final class Column
      * By default, Tabulator will sort a column in ascending order when a user first clicks on the column header.
      * The `headerSortStartingDir` property in the column definition can be used to set the starting sort direction
      * when a user clicks on an unsorted column
+     *
+     * @param ColumnCalculationInterface|null $topCalc
+     * Defines a calculation for the top of the column
+
+     * @param FormatterInterface|null $topCalcFormatter
+
+     * @param ColumnCalculationInterface|null $bottomCalc
+     * Defines a calculation for the bottom of the column
+
+     * @param FormatterInterface|null $bottomCalcFormatter
      */
     public function __construct(
         public readonly ?string                       $title = null,
@@ -70,6 +81,10 @@ final class Column
         public readonly ValidatorInterface|array|null $validator = null,
         public readonly ?SorterInterface              $sorter = null,
         public readonly ?SortDirection                $headerSortStartingDir = null,
+        public readonly ?ColumnCalculationInterface   $topCalc = null,
+        public readonly ?FormatterInterface           $topCalcFormatter = null,
+        public readonly ?ColumnCalculationInterface   $bottomCalc = null,
+        public readonly ?FormatterInterface           $bottomCalcFormatter = null,
     )
     {
 

@@ -184,6 +184,18 @@ final class TabulatorAdapter
             }
         }
 
+        if ($columnCalcs = $this->table->getColumnCalcs()) {
+            $result['columnCalcs'] = $columnCalcs->value;
+        }
+
+        if ($this->table->isGroupClosedShowCalcs()) {
+            $result['groupClosedShowCalcs'] = true;
+        }
+
+        if ($this->table->isDataTreeChildColumnCalcs()) {
+            $result['dataTreeChildColumnCalcs'] = true;
+        }
+
         foreach ($this->table->getColumns() as $column) {
             $item = [];
 
@@ -287,6 +299,34 @@ final class TabulatorAdapter
 
             if ($column->headerSortStartingDir) {
                 $item['headerSortStartingDir'] = $column->headerSortStartingDir->value;
+            }
+
+            if ($column->topCalc) {
+                $item['topCalc'] = $column->topCalc->getName();
+                if ($params = $column->topCalc->getParams()) {
+                    $item['topCalcParams'] = $params;
+                }
+            }
+
+            if ($column->topCalcFormatter) {
+                $item['topCalcFormatter'] = $column->topCalcFormatter->getName();
+                if ($params = $column->topCalcFormatter->getParams()) {
+                    $item['topCalcFormatterParams'] = $params;
+                }
+            }
+
+            if ($column->bottomCalc) {
+                $item['bottomCalc'] = $column->bottomCalc->getName();
+                if ($params = $column->bottomCalc->getParams()) {
+                    $item['bottomCalcParams'] = $params;
+                }
+            }
+
+            if ($column->bottomCalcFormatter) {
+                $item['bottomCalcFormatter'] = $column->bottomCalcFormatter->getName();
+                if ($params = $column->bottomCalcFormatter->getParams()) {
+                    $item['bottomCalcFormatterParams'] = $params;
+                }
             }
 
             $result['columns'][] = $item;

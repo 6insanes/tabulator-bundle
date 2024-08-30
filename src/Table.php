@@ -5,6 +5,8 @@ declare(strict_types=1);
 
 namespace DeviantLab\TabulatorBundle;
 
+use DeviantLab\TabulatorBundle\ColumnCalculation\CalculationVisibility;
+
 final class Table implements TableInterface
 {
     private ?Layout $layout = null;
@@ -54,6 +56,12 @@ final class Table implements TableInterface
     private ?Ajax $ajax;
 
     private string|bool|null $popupContainer = null;
+
+    private ?CalculationVisibility $columnCalcs = null;
+
+    private bool $groupClosedShowCalcs = false;
+
+    private bool $dataTreeChildColumnCalcs = false;
 
     public function __construct(
         private ?string                    $printHeader = null,
@@ -392,6 +400,64 @@ final class Table implements TableInterface
     public function setPopupContainer(string|bool|null $popupContainer): self
     {
         $this->popupContainer = $popupContainer;
+
+        return $this;
+    }
+
+    public function getColumnCalcs(): ?CalculationVisibility
+    {
+        return $this->columnCalcs;
+    }
+
+    /**
+     * By default, column calculations are shown at the top and bottom of the table, unless row grouping is enabled,
+     * in which case they are shown at the top and bottom of each group.
+     *
+     * @param CalculationVisibility|null $columnCalcs
+     * @return Table
+     */
+    public function setColumnCalcs(?CalculationVisibility $columnCalcs): self
+    {
+        $this->columnCalcs = $columnCalcs;
+
+        return $this;
+    }
+
+    public function isGroupClosedShowCalcs(): bool
+    {
+        return $this->groupClosedShowCalcs;
+    }
+
+    /**
+     * By default, Tabulator will hide column calculations in groups when the group is toggled closed.
+     * If you would like column calculations to display when a group is closed,
+     * set the groupClosedShowCalcs option to true.
+     *
+     * @param bool $groupClosedShowCalcs
+     * @return Table
+     */
+    public function setGroupClosedShowCalcs(bool $groupClosedShowCalcs): self
+    {
+        $this->groupClosedShowCalcs = $groupClosedShowCalcs;
+
+        return $this;
+    }
+
+    public function isDataTreeChildColumnCalcs(): bool
+    {
+        return $this->dataTreeChildColumnCalcs;
+    }
+
+    /**
+     * When you are using the dataTree option with your table, the column calculations will by default only use
+     * the data for the top level rows and will ignore any children.
+     *
+     * @param bool $dataTreeChildColumnCalcs
+     * @return Table
+     */
+    public function setDataTreeChildColumnCalcs(bool $dataTreeChildColumnCalcs): self
+    {
+        $this->dataTreeChildColumnCalcs = $dataTreeChildColumnCalcs;
 
         return $this;
     }

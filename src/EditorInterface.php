@@ -7,4 +7,6 @@ namespace DeviantLab\TabulatorBundle;
 interface EditorInterface
 {
     public function getName(): string;
+
+    public function getParams(): array;
 }

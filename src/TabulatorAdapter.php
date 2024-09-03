@@ -284,6 +284,9 @@ final class TabulatorAdapter
 
             if ($editor = $column->editor) {
                 $item['editor'] = $editor->getName();
+                if ($params = $editor->getParams()) {
+                    $item['editorParams'] = $params;
+                }
             }
 
             if ($validator = $column->validator) {

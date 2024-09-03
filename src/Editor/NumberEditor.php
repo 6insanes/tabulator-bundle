@@ -7,25 +7,34 @@ namespace DeviantLab\TabulatorBundle\Editor;
 use DeviantLab\TabulatorBundle\EditorInterface;
 
 /**
- * The input editor allows entering of a single line of plain text
+ * The number editor allows for numeric entry with a number type input element with increment and decrement buttons.
  */
-final class InputEditor implements EditorInterface
+final class NumberEditor implements EditorInterface
 {
     /**
-     * @param bool|null $search
-     * Use search type input element with clear button
+     * @param int|null $min
+     * The minimum allowed value
+     * @param int|null $max
+     * The maximum allowed value
+     * @param int|null $step
+     * The step size when incrementing/decrementing the value (default 1)
      * @param string|null $mask
      * Apply a mask to the input to allow characters to be entered only in a certain order
      * @param bool|null $selectContents
      * When the editor is loaded select its text content
      * @param array|null $elementAttributes
      * Set attributes directly on the input element
+     * @param VerticalNavigation|null $verticalNavigation
+     * Determine how use of the up/down arrow keys will affect the editor
      */
     public function __construct(
-        private readonly ?bool $search = null,
+        private readonly ?int $min = null,
+        private readonly ?int $max = null,
+        private readonly ?int $step = null,
         private readonly ?string $mask = null,
         private readonly ?bool $selectContents = null,
         private readonly ?array $elementAttributes = null,
+        private readonly ?VerticalNavigation $verticalNavigation = null,
     )
     {
 
@@ -33,14 +42,20 @@ final class InputEditor implements EditorInterface
 
     public function getName(): string
     {
-        return 'input';
+        return 'number';
     }
 
     public function getParams(): array
     {
         $result = [];
-        if ($this->search) {
-            $result['search'] = $this->search;
+        if ($this->min) {
+            $result['min'] = $this->min;
+        }
+        if ($this->max) {
+            $result['max'] = $this->max;
+        }
+        if ($this->step) {
+            $result['step'] = $this->step;
         }
         if ($this->mask) {
             $result['mask'] = $this->mask;
@@ -50,6 +65,9 @@ final class InputEditor implements EditorInterface
         }
         if ($this->elementAttributes) {
             $result['elementAttributes'] = $this->elementAttributes;
+        }
+        if ($this->verticalNavigation) {
+            $result['verticalNavigation'] = $this->verticalNavigation->value;
         }
 
         return $result;

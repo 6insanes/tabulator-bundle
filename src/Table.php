@@ -67,6 +67,8 @@ final class Table implements TableInterface
 
     private ?InitialSortCollection $initialSort = null;
 
+    private ?InitialFilterCollection $initialFilter = null;
+
     private ?bool $columnHeaderSortMulti = null;
 
     private ?HeaderSortClickElement $headerSortClickElement = null;
@@ -365,6 +367,18 @@ final class Table implements TableInterface
     public function setInitialSort(?InitialSortCollection $initialSort): self
     {
         $this->initialSort = $initialSort;
+
+        return $this;
+    }
+
+    public function getInitialFilter(): ?InitialFilterCollection
+    {
+        return $this->initialFilter;
+    }
+
+    public function setInitialFilter(?InitialFilterCollection $initialFilter): self
+    {
+        $this->initialFilter = $initialFilter;
 
         return $this;
     }

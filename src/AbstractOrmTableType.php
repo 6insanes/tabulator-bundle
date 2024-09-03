@@ -30,8 +30,8 @@ abstract class AbstractOrmTableType implements OrmTableInterface
             $columnsByFieldName[$column->field] = $column;
         }
 
-        foreach ($filter as ['field' => $field, 'type' => $type, 'value' => $value]) {
-            $column = $columnsByFieldName[$field];
+        foreach ($filter as $item) {
+            $column = $columnsByFieldName[$item['field']];
 
             if (!$column->headerFilter) {
                 continue;
@@ -39,7 +39,7 @@ abstract class AbstractOrmTableType implements OrmTableInterface
 
             $filterFunction = $column->headerFilter->filterFunction;
             if ($filterFunction instanceof OrmFilterFunctionInterface) {
-                $filterFunction->applyToOrmQueryBuilder($qb, $field, $value);
+                $filterFunction->applyToOrmQueryBuilder($qb, $item['field'], $item['value'] ?? null);
             }
         }
     }

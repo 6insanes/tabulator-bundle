@@ -96,6 +96,10 @@ final class TabulatorAdapter
             $result['initialSort'] = iterator_to_array($initialSort);
         }
 
+        if ($initialFilter = $this->table->getInitialFilter()) {
+            $result['initialFilter'] = iterator_to_array($initialFilter);
+        }
+
         if ($columnHeaderSortMulti = $this->table->getColumnHeaderSortMulti()) {
             $result['columnHeaderSortMulti'] = $columnHeaderSortMulti;
         }
@@ -203,7 +207,14 @@ final class TabulatorAdapter
                 $item['headerFilter'] = $column->headerFilter->editor->getName();
                 $item['headerFilterPlaceholder'] = $column->headerFilter->placeholder;
                 $item['headerFilterFunc'] = $column->headerFilter->filterFunction->getName();
-                if ($params = $column->headerFilter->editor->getParams()) {
+                $params = [];
+                if ($newParams = $column->headerFilter->editor->getParams()) {
+                    $params = $newParams;
+                }
+                if ($column->headerFilter->initial !== HeaderFilter::INITIAL_UNDEFINED) {
+                    $params['initial'] = $column->headerFilter->initial;
+                }
+                if ($params) {
                     $item['headerFilterParams'] = $params;
                 }
             }

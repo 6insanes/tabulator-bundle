@@ -13,6 +13,8 @@ use DeviantLab\TabulatorBundle\SortDirection;
  */
 final class SelectEditor implements EditorInterface
 {
+    public const DEFAULT_VALUE_EMPTY = '__DEFAULT_VALUE_EMPTY';
+
     /**
      * @param array|null $values
      * Either an array of values, or value objects (this is explained in more detail in the next section)
@@ -83,7 +85,7 @@ final class SelectEditor implements EditorInterface
         private readonly ?array $elementAttributes = null,
         private readonly ?VerticalNavigation $verticalNavigation = null,
         private readonly ?SortDirection $sort = null,
-        private readonly ?string $defaultValue = null,
+        private readonly mixed $defaultValue = self::DEFAULT_VALUE_EMPTY,
         private readonly ?string $emptyValue = null,
         private readonly ?bool $maxWidth = null,
         private readonly ?string $placeholderLoading = null,
@@ -131,7 +133,7 @@ final class SelectEditor implements EditorInterface
         if ($this->valuesLookupField) {
             $result['valuesLookupField'] = $this->valuesLookupField;
         }
-        if ($this->clearable) {
+        if ($this->clearable !== null) {
             $result['clearable'] = $this->clearable;
         }
         if ($this->elementAttributes) {
@@ -143,13 +145,13 @@ final class SelectEditor implements EditorInterface
         if ($this->sort) {
             $result['sort'] = $this->sort->value;
         }
-        if ($this->defaultValue) {
+        if ($this->defaultValue !== self::DEFAULT_VALUE_EMPTY) {
             $result['defaultValue'] = $this->defaultValue;
         }
         if ($this->emptyValue) {
             $result['emptyValue'] = $this->emptyValue;
         }
-        if ($this->maxWidth) {
+        if ($this->maxWidth !== null) {
             $result['maxWidth'] = $this->maxWidth;
         }
         if ($this->placeholderLoading) {
@@ -158,28 +160,28 @@ final class SelectEditor implements EditorInterface
         if ($this->placeholderEmpty) {
             $result['placeholderEmpty'] = $this->placeholderEmpty;
         }
-        if ($this->multiselect) {
+        if ($this->multiselect !== null) {
             $result['multiselect'] = $this->multiselect;
         }
-        if ($this->autocomplete) {
+        if ($this->autocomplete !== null) {
             $result['autocomplete'] = $this->autocomplete;
         }
-        if ($this->filterRemote) {
+        if ($this->filterRemote !== null) {
             $result['filterRemote'] = $this->filterRemote;
         }
         if ($this->filterDelay) {
             $result['filterDelay'] = $this->filterDelay;
         }
-        if ($this->allowEmpty) {
+        if ($this->allowEmpty !== null) {
             $result['allowEmpty'] = $this->allowEmpty;
         }
-        if ($this->listOnEmpty) {
+        if ($this->listOnEmpty !== null) {
             $result['listOnEmpty'] = $this->listOnEmpty;
         }
         if ($this->mask) {
             $result['mask'] = $this->mask;
         }
-        if ($this->freetext) {
+        if ($this->freetext !== null) {
             $result['freetext'] = $this->freetext;
         }
 

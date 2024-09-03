@@ -17,7 +17,11 @@ final class Equal implements FilterFunctionInterface, OrmFilterFunctionInterface
 
     public function applyToOrmQueryBuilder(QueryBuilder $qb, string $field, mixed $value): void
     {
-        $qb->andWhere("{$qb->getRootAliases()[0]}.{$field} = :{$field}");
-        $qb->setParameter($field, $value);
+        if ($value === null) {
+            $qb->andWhere("{$qb->getRootAliases()[0]}.{$field} IS NULL");
+        } else {
+            $qb->andWhere("{$qb->getRootAliases()[0]}.{$field} = :{$field}");
+            $qb->setParameter($field, $value);
+        }
     }
 }

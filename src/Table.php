@@ -18,6 +18,28 @@ final class Table implements TableInterface
     private string|int|null $minHeight = null;
 
     /**
+     * Enabled by default
+     * https://tabulator.info/docs/6.2/layout#resize-table
+     *
+     * @var bool|null
+     */
+    private ?bool $autoResize = null;
+
+    private ?bool $selectableRows = null;
+
+    private string $locale = 'ru';
+
+    private ?string $printHeader = null;
+
+    private ?int $rowHeight = null;
+
+    private ?bool $layoutColumnsOnNewData = null;
+
+    private ?EditTriggerEvent $editTriggerEvent = null;
+
+    private ?bool $resizableColumnFit = null;
+
+    /**
      * @var array<string, Column>
      */
     private array $columns = [];
@@ -53,7 +75,7 @@ final class Table implements TableInterface
 
     private ?Pagination $pagination = null;
 
-    private ?Ajax $ajax;
+    private ?Ajax $ajax = null;
 
     private string|bool|null $popupContainer = null;
 
@@ -63,30 +85,7 @@ final class Table implements TableInterface
 
     private bool $dataTreeChildColumnCalcs = false;
 
-    public function __construct(
-        private ?string                    $printHeader = null,
-        private readonly ?int              $rowHeight = null,
-        private readonly ?bool             $layoutColumnsOnNewData = null,
-        private readonly string            $locale = 'ru',
-        private readonly ?EditTriggerEvent $editTriggerEvent = null,
-
-        /**
-         * Enabled by default
-         * https://tabulator.info/docs/6.2/layout#resize-table
-         *
-         * @var bool|null
-         */
-        private readonly ?bool             $autoResize = null,
-        private readonly ?bool             $resizableColumnFit = null,
-        private readonly ?bool             $selectableRows = null,
-        ?Ajax                              $ajax = null,
-        ?Pagination                        $pagination = null,
-        private readonly ?RowHeader        $rowHeader = null,
-    )
-    {
-        $this->ajax = $ajax;
-        $this->setPagination($pagination);
-    }
+    private ?RowHeader $rowHeader = null;
 
     public function getLayout(): ?Layout
     {
@@ -139,6 +138,13 @@ final class Table implements TableInterface
     public function getRowHeight(): ?int
     {
         return $this->rowHeight;
+    }
+
+    public function setRowHeight(?int $rowHeight): self
+    {
+        $this->rowHeight = $rowHeight;
+
+        return $this;
     }
 
     public function addColumn(Column $column): self
@@ -248,9 +254,23 @@ final class Table implements TableInterface
         return $this->layoutColumnsOnNewData;
     }
 
+    public function setLayoutColumnsOnNewData(?bool $layoutColumnsOnNewData): self
+    {
+        $this->layoutColumnsOnNewData = $layoutColumnsOnNewData;
+
+        return $this;
+    }
+
     public function getAutoResize(): ?bool
     {
         return $this->autoResize;
+    }
+
+    public function setAutoResize(?bool $autoResize): self
+    {
+        $this->autoResize = $autoResize;
+
+        return $this;
     }
 
     public function getResizableColumnFit(): ?bool
@@ -258,9 +278,11 @@ final class Table implements TableInterface
         return $this->resizableColumnFit;
     }
 
-    public function getRowHeader(): ?RowHeader
+    public function setResizableColumnFit(?bool $resizableColumnFit): self
     {
-        return $this->rowHeader;
+        $this->resizableColumnFit = $resizableColumnFit;
+
+        return $this;
     }
 
     public function getSelectableRows(): ?bool
@@ -268,9 +290,23 @@ final class Table implements TableInterface
         return $this->selectableRows;
     }
 
+    public function setSelectableRows(?bool $selectableRows): self
+    {
+        $this->selectableRows = $selectableRows;
+
+        return $this;
+    }
+
     public function getPrintHeader(): ?string
     {
         return $this->printHeader;
+    }
+
+    public function setPrintHeader(?string $printHeader): self
+    {
+        $this->printHeader = $printHeader;
+
+        return $this;
     }
 
     public function getLocale(): string
@@ -278,9 +314,23 @@ final class Table implements TableInterface
         return $this->locale;
     }
 
+    public function setLocale(string $locale): self
+    {
+        $this->locale = $locale;
+
+        return $this;
+    }
+
     public function getEditTriggerEvent(): ?EditTriggerEvent
     {
         return $this->editTriggerEvent;
+    }
+
+    public function setEditTriggerEvent(?EditTriggerEvent $editTriggerEvent): self
+    {
+        $this->editTriggerEvent = $editTriggerEvent;
+
+        return $this;
     }
 
     public function getAjax(): ?Ajax
@@ -458,6 +508,18 @@ final class Table implements TableInterface
     public function setDataTreeChildColumnCalcs(bool $dataTreeChildColumnCalcs): self
     {
         $this->dataTreeChildColumnCalcs = $dataTreeChildColumnCalcs;
+
+        return $this;
+    }
+
+    public function getRowHeader(): ?RowHeader
+    {
+        return $this->rowHeader;
+    }
+
+    public function setRowHeader(?RowHeader $rowHeader): self
+    {
+        $this->rowHeader = $rowHeader;
 
         return $this;
     }

@@ -51,14 +51,17 @@ final class TableTest extends TestCase
     {
         $pagination = new Pagination(PaginationMode::REMOTE);
         $this->expectException(\LogicException::class);
-        new Table(pagination: $pagination);
+        $table = new Table();
+        $table->setPagination($pagination);
     }
 
     public function testThatRemotePaginationCanBeAdded(): void
     {
         $pagination = new Pagination(PaginationMode::REMOTE);
         $ajax = new Ajax('/data');
-        $table = new Table(ajax: $ajax, pagination: $pagination);
+        $table = new Table();
+        $table->setAjax($ajax);
+        $table->setPagination($pagination);
         $this->assertInstanceOf(Table::class, $table);
     }
 }

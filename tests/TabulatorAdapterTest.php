@@ -70,7 +70,8 @@ final class TabulatorAdapterTest extends TestCase
 
     public function testLayoutWithPixels(): void
     {
-        $table = new Table(rowHeight: 40);
+        $table = new Table();
+        $table->setRowHeight(40);
         $table->setHeight(100);
         $table->setMaxHeight(99);
         $table->setMinHeight(98);
@@ -89,7 +90,8 @@ final class TabulatorAdapterTest extends TestCase
     public function testSimpleAjaxConfig(): void
     {
         $ajax = new Ajax(url: 'http://www.getmydata.com/now');
-        $table = new Table(ajax: $ajax);
+        $table = new Table();
+        $table->setAjax($ajax);
         $adapter = new TabulatorAdapter($table);
 
         $options = $adapter->getOptions();
@@ -107,7 +109,8 @@ final class TabulatorAdapterTest extends TestCase
             url: 'http://www.getmydata.com/now',
             params: ['key1' => 'value1', 'key2' => 'value2']
         );
-        $table = new Table(ajax: $ajax);
+        $table = new Table();
+        $table->setAjax($ajax);
         $adapter = new TabulatorAdapter($table);
 
         $options = $adapter->getOptions();
@@ -127,7 +130,8 @@ final class TabulatorAdapterTest extends TestCase
             method: 'POST',
         );
         $ajax->addHeader('Content-type', 'application/json; charset=utf-8');
-        $table = new Table(ajax: $ajax);
+        $table = new Table();
+        $table->setAjax($ajax);
         $adapter = new TabulatorAdapter($table);
 
         $options = $adapter->getOptions();
@@ -151,7 +155,8 @@ final class TabulatorAdapterTest extends TestCase
             url: 'http://www.getmydata.com/now',
         );
         $ajax->addHeader('Content-type', 'application/json; charset=utf-8');
-        $table = new Table(ajax: $ajax);
+        $table = new Table();
+        $table->setAjax($ajax);
         $adapter = new TabulatorAdapter($table);
 
         $options = $adapter->getOptions();
@@ -174,7 +179,8 @@ final class TabulatorAdapterTest extends TestCase
             url: 'http://www.getmydata.com/now',
             contentType: 'json'
         );
-        $table = new Table(ajax: $ajax);
+        $table = new Table();
+        $table->setAjax($ajax);
         $adapter = new TabulatorAdapter($table);
 
         $options = $adapter->getOptions();
@@ -194,7 +200,8 @@ final class TabulatorAdapterTest extends TestCase
             pageParamName: 'pageNo',
             sizeParamName: 'sizeNo',
         );
-        $table = new Table(pagination: $pagination);
+        $table = new Table();
+        $table->setPagination($pagination);
         $adapter = new TabulatorAdapter($table);
 
         $options = $adapter->getOptions();
@@ -208,7 +215,8 @@ final class TabulatorAdapterTest extends TestCase
     public function testPaginationConfigWithSize(): void
     {
         $pagination = new Pagination(size: 40);
-        $table = new Table(pagination: $pagination);
+        $table = new Table();
+        $table->setPagination($pagination);
         $adapter = new TabulatorAdapter($table);
 
         $options = $adapter->getOptions();
@@ -223,7 +231,8 @@ final class TabulatorAdapterTest extends TestCase
     public function testPaginationConfigWithCustomParameterName(): void
     {
         $pagination = new Pagination(pageParamName: 'pageNo');
-        $table = new Table(pagination: $pagination);
+        $table = new Table();
+        $table->setPagination($pagination);
         $adapter = new TabulatorAdapter($table);
 
         $options = $adapter->getOptions();
@@ -273,7 +282,8 @@ final class TabulatorAdapterTest extends TestCase
 
     public function testLayoutColumnsOnNewData(): void
     {
-        $table = new Table(layoutColumnsOnNewData: true);
+        $table = new Table();
+        $table->setLayoutColumnsOnNewData(true);
         $adapter = new TabulatorAdapter($table);
 
         $options = $adapter->getOptions();
@@ -283,7 +293,8 @@ final class TabulatorAdapterTest extends TestCase
 
     public function testAutoResize(): void
     {
-        $table = new Table(autoResize: false);
+        $table = new Table();
+        $table->setAutoResize(false);
         $adapter = new TabulatorAdapter($table);
 
         $options = $adapter->getOptions();
@@ -293,7 +304,8 @@ final class TabulatorAdapterTest extends TestCase
 
     public function testResizableColumnFit(): void
     {
-        $table = new Table(resizableColumnFit: false);
+        $table = new Table();
+        $table->setResizableColumnFit(false);
         $adapter = new TabulatorAdapter($table);
 
         $options = $adapter->getOptions();
@@ -319,7 +331,8 @@ final class TabulatorAdapterTest extends TestCase
 
     public function testRowHeader(): void
     {
-        $table = new Table(rowHeader: new RowHeader(frozen: true, resizable: false, formatter: new RowSelectionFormatter()));
+        $table = new Table();
+        $table->setRowHeader(new RowHeader(frozen: true, resizable: false, formatter: new RowSelectionFormatter()));
         $adapter = new TabulatorAdapter($table);
         $options = $adapter->getOptions();
 
@@ -332,9 +345,8 @@ final class TabulatorAdapterTest extends TestCase
 
     public function testRowSelectionFormatter(): void
     {
-        $table = new Table(
-            selectableRows: true,
-        );
+        $table = new Table();
+        $table->setSelectableRows(true);
         $table->addColumn(new Column(
             hozAlign: HozAlign::CENTER,
             formatter: new RowSelectionFormatter(),

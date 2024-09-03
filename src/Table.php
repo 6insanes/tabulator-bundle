@@ -89,6 +89,14 @@ final class Table implements TableInterface
 
     private ?RowHeader $rowHeader = null;
 
+    private ?bool $dataLoader = null;
+
+    private ?string $dataLoaderLoading = null;
+
+    private ?string $dataLoaderError = null;
+
+    private ?int $dataLoaderErrorTimeout = null;
+
     public function getLayout(): ?Layout
     {
         return $this->layout;
@@ -534,6 +542,57 @@ final class Table implements TableInterface
     public function setRowHeader(?RowHeader $rowHeader): self
     {
         $this->rowHeader = $rowHeader;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getDataLoader(): ?bool
+    {
+        return $this->dataLoader;
+    }
+
+    public function setDataLoader(?bool $dataLoader): self
+    {
+        $this->dataLoader = $dataLoader;
+
+        return $this;
+    }
+
+    public function getDataLoaderLoading(): ?string
+    {
+        return $this->dataLoaderLoading;
+    }
+
+    public function setDataLoaderLoading(?string $dataLoaderLoading): self
+    {
+        $this->dataLoaderLoading = $dataLoaderLoading;
+
+        return $this;
+    }
+
+    public function getDataLoaderError(): ?string
+    {
+        return $this->dataLoaderError;
+    }
+
+    public function setDataLoaderError(?string $dataLoaderError): self
+    {
+        $this->dataLoaderError = $dataLoaderError;
+
+        return $this;
+    }
+
+    public function getDataLoaderErrorTimeout(): ?int
+    {
+        return $this->dataLoaderErrorTimeout;
+    }
+
+    public function setDataLoaderErrorTimeout(?int $dataLoaderErrorTimeout): self
+    {
+        $this->dataLoaderErrorTimeout = $dataLoaderErrorTimeout;
 
         return $this;
     }

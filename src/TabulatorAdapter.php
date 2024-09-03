@@ -353,6 +353,24 @@ final class TabulatorAdapter
             $result['editTriggerEvent'] = $triggerEvent;
         }
 
+        $dataLoader = $this->table->getDataLoader();
+        if ($dataLoader === false) {
+            $result['dataLoader'] = false;
+        }
+
+        if ($dataLoaderLoading = $this->table->getDataLoaderLoading()) {
+            $result['dataLoaderLoading'] = $dataLoaderLoading;
+        }
+
+        if ($dataLoaderError = $this->table->getDataLoaderError()) {
+            $result['dataLoaderError'] = $dataLoaderError;
+        }
+
+        $dataLoaderErrorTimeout = $this->table->getDataLoaderErrorTimeout();
+        if ($dataLoaderErrorTimeout !== null) {
+            $result['dataLoaderErrorTimeout'] = $this->table->getDataLoaderErrorTimeout();
+        }
+
         return $result;
     }
 

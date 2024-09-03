@@ -3,7 +3,7 @@
     "description": "Tabulator Symfony bundle",
     "type": "symfony-bundle",
     "keywords": ["symfony-ux"],
-    "version": "0.2.3",
+    "version": "0.2.4",
     "license": "MIT",
     "authors": [
         {

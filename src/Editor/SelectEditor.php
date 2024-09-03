@@ -125,7 +125,7 @@ final class SelectEditor implements EditorInterface
             $result['values'] = $this->values;
         }
         if ($this->valuesUrl) {
-            $result['valuesUrl'] = $this->valuesUrl;
+            $result['valuesURL'] = $this->valuesUrl;
         }
         if ($this->valuesLookup) {
             $result['valuesLookup'] = $this->valuesLookup;

@@ -14,7 +14,7 @@ final class DeviantlabTabulatorBundle extends AbstractBundle
     {
         $container->import('../config/services.php');
 
-        $builder->registerForAutoconfiguration(OrmTableInterface::class)
+        $builder->registerForAutoconfiguration(TableInterface::class)
             ->addTag('deviantlab.tabulator.table_type');
     }
 }

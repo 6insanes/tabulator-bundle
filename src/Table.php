@@ -7,7 +7,7 @@ namespace DeviantLab\TabulatorBundle;
 
 use DeviantLab\TabulatorBundle\ColumnCalculation\CalculationVisibility;
 
-final class Table implements TableInterface
+final class Table
 {
     private ?Layout $layout = null;
 

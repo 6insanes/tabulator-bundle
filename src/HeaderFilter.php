@@ -10,7 +10,7 @@ final class HeaderFilter
 
     public function __construct(
         public readonly EditorInterface $editor,
-        public readonly FilterFunctionInterface $filterFunction,
+        public readonly FilterFunction $filterFunction,
         public readonly mixed $initial = self::INITIAL_UNDEFINED,
         public readonly ?string $placeholder = null,
     )

@@ -206,7 +206,7 @@ final class TabulatorAdapter
             if ($column->headerFilter !== null) {
                 $item['headerFilter'] = $column->headerFilter->editor->getName();
                 $item['headerFilterPlaceholder'] = $column->headerFilter->placeholder;
-                $item['headerFilterFunc'] = $column->headerFilter->filterFunction->getName();
+                $item['headerFilterFunc'] = $column->headerFilter->filterFunction->value;
                 $params = [];
                 if ($newParams = $column->headerFilter->editor->getParams()) {
                     $params = $newParams;

@@ -6,13 +6,19 @@ namespace DeviantLab\TabulatorBundle;
 
 use DeviantLab\TabulatorBundle\Server\Filter\FilterOverride;
 use DeviantLab\TabulatorBundle\Server\Sorter\SortOverride;
-use Doctrine\ORM\Query;
+use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Query\QueryBuilder;
 
-abstract class AbstractOrmTableType implements OrmTableInterface
+abstract class AbstractNativeTableType implements NativeTableInterface
 {
-    public function configureQuery(Query $query): void
+    public function getConnectionName(): string
     {
-        // do nothing
+        return 'default';
+    }
+
+    public function doTransform(array $items): array
+    {
+        return $items;
     }
 
     public function configureTable(Table $table): void
@@ -20,9 +26,9 @@ abstract class AbstractOrmTableType implements OrmTableInterface
         // do nothing
     }
 
-    public function doTransform(array $items): array
+    public function getCountQueryBuilder(Connection $connection, array $params): ?QueryBuilder
     {
-        return $items;
+        return null;
     }
 
     public function getSortOverride(): ?SortOverride

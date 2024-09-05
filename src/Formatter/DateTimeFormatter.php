@@ -9,6 +9,7 @@ use DeviantLab\TabulatorBundle\FormatterInterface;
 
 final class DateTimeFormatter implements FormatterInterface
 {
+
     public function __construct(
         private readonly string $inputFormat = 'iso',
         private readonly string $outputFormat = 'dd.MM.yyyy',

@@ -2,46 +2,46 @@
 
 declare(strict_types=1);
 
-namespace DeviantLab\TabulatorBundle\Controller;
+namespace DeviantLab\TabulatorBundle\Server;
 
+use DeviantLab\TabulatorBundle\TableInterface;
+use Doctrine\ORM\Tools\Pagination\Paginator as DoctrinePaginator;
 use DeviantLab\TabulatorBundle\FilterMode;
 use DeviantLab\TabulatorBundle\OrmTableInterface;
 use DeviantLab\TabulatorBundle\PaginationMode;
 use DeviantLab\TabulatorBundle\SortMode;
-use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
-use Psr\Container\ContainerInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Serializer\SerializerInterface;
 
-final class TableController
+final class OrmTableHandler implements TableHandlerInterface
 {
     public function __construct(
-        private readonly ContainerInterface $locator,
         private readonly ManagerRegistry $doctrine,
-        private readonly SerializerInterface $serializer,
+        private readonly DoctrineHelper $doctrineHelper,
     )
     {
 
     }
 
-    public function __invoke(Request $request): Response
+    public function supports(TableInterface $tableType): bool
     {
-        $tableName = $request->attributes->get('_tableName');
-        /** @var OrmTableInterface $tableType */
-        $tableType = $this->locator->get($tableName);
+        return $tableType instanceof OrmTableInterface;
+    }
 
+    public function handle(TableInterface $tableType, Request $request): array
+    {
+        assert($tableType instanceof OrmTableInterface);
+
+        $params = $request->query->has('param') ? $request->query->all('param') : [];
         $repo = $this->doctrine->getRepository($tableType->getEntityClass());
-        $qb = $tableType->getQueryBuilder($repo, $request->query->has('param') ? $request->query->all('param') : []);
+        $qb = $tableType->getQueryBuilder($repo, $params);
 
         if ($tableType->getSortMode() === SortMode::REMOTE && $request->query->has('sort')) {
-            $tableType->applySort($qb, $request->query->all('sort'));
+            $this->doctrineHelper->sort($qb, $request->query->all('sort'), $tableType->getSortOverride());
         }
 
         if ($tableType->getFilterMode() === FilterMode::REMOTE && $request->query->has('filter')) {
-            $tableType->applyFilter($qb, $request->query->all('filter'));
+            $this->doctrineHelper->filter($qb, $request->query->all('filter'), $tableType->getFilterOverride());
         }
 
         $pagination = $tableType->getPagination();
@@ -50,28 +50,26 @@ final class TableController
             $tableType->configureQuery($query);
             $items = $query->getResult();
             $items = $tableType->doTransform($items);
-            $json = $this->serializer->serialize($items, 'json');
-            return JsonResponse::fromJsonString($json);
+            return $items;
         }
 
         $size = $request->query->getInt($pagination->getSizeParamName());
         $page = $request->query->getInt($pagination->getPageParamName());
-        $tableType->applyPagination($qb, $size, $page);
+        $this->doctrineHelper->paginate($qb, $size, $page);
 
         $query = $qb->getQuery();
         $tableType->configureQuery($query);
-        $paginator = new Paginator($query);
+        $paginator = new DoctrinePaginator($query, false);
 
         $items = iterator_to_array($paginator->getIterator());
         $items = $tableType->doTransform($items);
 
-        $data = [
-            'last_page' => (int) ceil($paginator->count() / $size),
+        $count = $paginator->count();
+
+        return [
+            'last_row' => $count,
+            'last_page' => (int) ceil($count / $size),
             'data' => $items,
         ];
-
-        $json = $this->serializer->serialize($data, 'json');
-
-        return JsonResponse::fromJsonString($json);
     }
 }

@@ -31,13 +31,13 @@ final class TableFactory
             throw new \InvalidArgumentException("{$tableTypeClass} not found");
         }
 
-        /** @var OrmTableInterface $tableType */
+        /** @var TableInterface $tableType */
         $tableType = $this->locator->get($tableTypeClass);
 
         return $this->createTable($tableType, $params);
     }
 
-    public function createTable(OrmTableInterface $tableType, ?array $params = null): Table
+    public function createTable(TableInterface $tableType, ?array $params = null): Table
     {
         $table = new Table();
         foreach ($tableType->getColumns() as $column) {

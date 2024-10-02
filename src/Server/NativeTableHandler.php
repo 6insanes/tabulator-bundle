@@ -54,7 +54,7 @@ final class NativeTableHandler implements TableHandlerInterface
         $pagination = $tableType->getPagination();
         if (!$pagination || $pagination->getMode() === PaginationMode::LOCAL) {
             $items = $qb->fetchAllAssociative();
-            $items = $tableType->doTransform($items);
+            $items = $tableType->doTransform($items, $params);
             return $items;
         }
 
@@ -67,7 +67,7 @@ final class NativeTableHandler implements TableHandlerInterface
 
         if ($count > 0) {
             $items = $qb->fetchAllAssociative();
-            $items = $tableType->doTransform($items);
+            $items = $tableType->doTransform($items, $params);
         }
 
         return [

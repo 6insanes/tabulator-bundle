@@ -29,5 +29,5 @@ interface TableInterface
 
     public function configureTable(Table $table): void;
 
-    public function doTransform(array $items): array;
+    public function doTransform(array $items, array $params): array;
 }

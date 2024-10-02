@@ -49,7 +49,7 @@ final class OrmTableHandler implements TableHandlerInterface
             $query = $qb->getQuery();
             $tableType->configureQuery($query);
             $items = $query->getResult();
-            $items = $tableType->doTransform($items);
+            $items = $tableType->doTransform($items, $params);
             return $items;
         }
 
@@ -62,7 +62,7 @@ final class OrmTableHandler implements TableHandlerInterface
         $paginator = new DoctrinePaginator($query, false);
 
         $items = iterator_to_array($paginator->getIterator());
-        $items = $tableType->doTransform($items);
+        $items = $tableType->doTransform($items, $params);
 
         $count = $paginator->count();
 

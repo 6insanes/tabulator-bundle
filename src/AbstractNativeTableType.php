@@ -16,7 +16,7 @@ abstract class AbstractNativeTableType implements NativeTableInterface
         return 'default';
     }
 
-    public function doTransform(array $items): array
+    public function doTransform(array $items, array $params): array
     {
         return $items;
     }

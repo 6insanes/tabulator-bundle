@@ -53,7 +53,7 @@ final class OrmHandler implements FilterInterface
                 }
                 break;
             case FilterFunction::ENDS_WITH:
-                $qb->andWhere("{$aliasField} LIKE :{$field}");
+                $qb->andWhere("UPPER({$aliasField}) LIKE UPPER(:{$field})");
                 $qb->setParameter($field, "%{$value}");
                 break;
             case FilterFunction::GREATER_THEN:
@@ -73,7 +73,7 @@ final class OrmHandler implements FilterInterface
                 $qb->setParameter($field, $value);
                 break;
             case FilterFunction::LIKE:
-                $qb->andWhere("{$aliasField} LIKE :{$field}");
+                $qb->andWhere("UPPER({$aliasField}) LIKE UPPER(:{$field})");
                 $qb->setParameter($field, "%{$value}%");
                 break;
             case FilterFunction::NOT_EQUAL:
@@ -85,7 +85,7 @@ final class OrmHandler implements FilterInterface
                 }
                 break;
             case FilterFunction::STARTS_WITH:
-                $qb->andWhere("{$aliasField} LIKE :{$field}");
+                $qb->andWhere("UPPER({$aliasField}) LIKE UPPER(:{$field})");
                 $qb->setParameter($field, "{$value}%");
                 break;
             default:

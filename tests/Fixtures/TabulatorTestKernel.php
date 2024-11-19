@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace DeviantLab\TabulatorBundle\Tests\Fixtures;
 
-use DeviantLab\TabulatorBundle\DeviantlabTabulatorBundle;
+use DeviantLab\TabulatorBundle\DeviantLabTabulatorBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Bundle\TwigBundle\TwigBundle;
@@ -20,7 +20,7 @@ final class TabulatorTestKernel extends Kernel
         return [
             new FrameworkBundle(),
             new TwigBundle(),
-            new DeviantlabTabulatorBundle(),
+            new DeviantLabTabulatorBundle(),
         ];
     }
 

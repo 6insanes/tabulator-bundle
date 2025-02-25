@@ -12,7 +12,7 @@ use Twig\TwigFunction;
 
 final class TableTwigExtension extends AbstractExtension
 {
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new TwigFunction('render_table', [$this, 'renderTable'], [

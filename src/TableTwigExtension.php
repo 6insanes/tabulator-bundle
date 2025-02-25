@@ -30,7 +30,7 @@ final class TableTwigExtension extends AbstractExtension
             'options' => $adapter->getOptions(),
         ]);
 
-        return $twig->render('@DeviantlabTabulator/tabulator.html.twig', [
+        return $twig->render('@DeviantLabTabulator/tabulator.html.twig', [
             'stimulusAttributes' => $stimulusAttributes,
         ]);
     }
